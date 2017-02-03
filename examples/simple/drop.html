@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Panel Example</title>
+    <style>
+      body {
+        position: absolute;
+        top: 0; bottom: 0; left: 0; right: 0;
+        display: flex;
+        flex-direction: column;
+
+        background: #555;
+      }
+
+      h2 {
+        color: #f90;
+      }
+
+      .box {
+        color: #888;
+        border: 1px solid #888;
+        width: 200px;
+        height: 100px;
+        margin: 5px;
+      }
+
+      .box[drag-hovering] {
+        color: #090;
+        border: 1px solid #090;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Drop</h2>
+
+   <div id="drop" class="box" droppable="foo,bar" multi >Drop Area</div>
+
+    <script>
+      'use strict'
+
+      const {drag, droppable} = require('../../index');
+
+      function addon (obj, ...args) {
+        obj = obj || {};
+        for (let i = 0; i < args.length; ++i) {
+          let source = args[i];
+
+          for ( let name in source) {
+            if ( !(name in obj) ) {
+              _copyprop( name, source, obj);
+            }
+          }
+        }
+        return obj;
+      }
+
+      function _getPropertyDescriptor(obj, name) {
+        if (!obj) {
+          return null;
+        }
+
+        let pd = Object.getOwnPropertyDescriptor(obj, name);
+        return pd || _getPropertyDescriptor(Object.getPrototypeOf(obj), name);
+      }
+
+      function _copyprop(name, source, target) {
+        let pd = _getPropertyDescriptor(source, name);
+        Object.defineProperty(target, name, pd);
+      }
+
+      let dropEL = document.getElementById('drop');
+      addon (dropEL, droppable);
+      dropEL._initDroppable(dropEL);
+
+      dropEL.addEventListener('drop-area-move', event => {
+        drag.updateDropEffect(event.detail.dataTransfer, 'copy');
+      });
+
+      dropEL.addEventListener('drop-area-move', event => {
+        drag.updateDropEffect(event.detail.dataTransfer, 'copy');
+      });
+
+    </script>
+  </body>
+</html>

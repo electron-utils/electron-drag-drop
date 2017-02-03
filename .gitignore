@@ -1,0 +1,30 @@
+# mac-osx files
+.DS_store
+profile
+
+# visual-studio files
+*.ncb *.sln
+*.suo
+*.vcproj.*.user
+*.pdb
+*.idb
+*.csproj
+*.csproj.user
+
+# visual-studio code
+.vscode/
+
+# exvim files
+*.err
+*.exvim
+.exvim.*/
+
+# webstorm
+.idea
+
+# log files
+*.log
+
+# project files
+node_modules/
+bower_components/

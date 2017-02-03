@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Panel Example</title>
+    <style>
+      body {
+        position: absolute;
+        top: 0; bottom: 0; left: 0; right: 0;
+        display: flex;
+        flex-direction: column;
+
+        background: #333;
+      }
+
+      h2 {
+        color: #09f;
+      }
+
+      .box {
+        color: #888;
+        border: 1px solid #888;
+        width: 100px;
+        height: 100px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Drag</h2>
+
+    <div id="foo" class="box" draggable="true">foo</div>
+    <div id="bar" class="box" draggable="true">bar-01, bar-02</div>
+
+    <script>
+      'use strict'
+
+      const {drag} = require('../../index');
+
+      let fooEL = document.getElementById('foo');
+      let barEL = document.getElementById('bar');
+
+      fooEL.addEventListener('dragstart', event => {
+        drag.start(event.dataTransfer, {
+          effect: 'copy',
+          type: 'foo',
+          items: 'foo',
+        });
+      });
+      fooEL.addEventListener('dragend', event => {
+        drag.end();
+      });
+
+      barEL.addEventListener('dragstart', event => {
+        drag.start(event.dataTransfer, {
+          effect: 'copy',
+          type: 'bar',
+          items: ['bar-01', 'bar-02'],
+          buildImage: true,
+        });
+      });
+      barEL.addEventListener('dragend', event => {
+        drag.end();
+      });
+    </script>
+  </body>
+</html>

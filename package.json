@@ -1,0 +1,35 @@
+{
+  "name": "electron-drag-drop",
+  "version": "1.0.0",
+  "description": "Easily manipulate drag and drop in Electron.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node run.js",
+    "test": "mocha test/*.spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/electron-utils/electron-drag-drop.git"
+  },
+  "keywords": [
+    "Electron",
+    "Drag",
+    "Drop"
+  ],
+  "author": "jwu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/electron-utils/electron-drag-drop/issues"
+  },
+  "homepage": "https://github.com/electron-utils/electron-drag-drop",
+  "devDependencies": {
+    "electron": "^1.4.15",
+    "mocha": "^3.2.0",
+    "spectron": "3.4.1"
+  },
+  "dependencies": {
+    "electron-ipc-plus": "^1.2.3",
+    "electron-platform": "^1.2.0",
+    "path-plus": "^1.0.0"
+  }
+}

@@ -36,38 +36,11 @@ require('electron-drag-drop');
   <div id="drop" droppable="foobar" multi >Droppable Area</div>
 
   <script>
-    const {drag, droppable} = require('electron-drag-drop');
-
-    function _addon (obj, ...args) {
-      obj = obj || {};
-      for (let i = 0; i < args.length; ++i) {
-        let source = args[i];
-
-        for ( let name in source) {
-          if ( !(name in obj) ) {
-            _copyprop( name, source, obj);
-          }
-        }
-      }
-      return obj;
-    }
-
-    function _getPropertyDescriptor(obj, name) {
-      if (!obj) {
-        return null;
-      }
-
-      let pd = Object.getOwnPropertyDescriptor(obj, name);
-      return pd || _getPropertyDescriptor(Object.getPrototypeOf(obj), name);
-    }
-
-    function _copyprop(name, source, target) {
-      let pd = _getPropertyDescriptor(source, name);
-      Object.defineProperty(target, name, pd);
-    }
+    const {drag, droppable, addon} = require('electron-drag-drop');
 
     // drag
     let dragEL = document.getElementById('drag');
+
     dragEL.addEventListener('dragstart', event => {
       drag.start(event.dataTransfer, {
         effect: 'copy',
@@ -81,9 +54,9 @@ require('electron-drag-drop');
 
     // drop
     let dropEL = document.getElementById('drop');
-    _addon(dropEL, droppable);
-    dropEL._initDroppable(dropEL);
 
+    addon(dropEL, droppable);
+    dropEL._initDroppable(dropEL);
     dropEL.addEventListener('drop-area-move', event => {
       drag.updateDropEffect(event.detail.dataTransfer, 'copy');
     });

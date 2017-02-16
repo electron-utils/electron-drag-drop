@@ -1,6 +1,6 @@
 {
   "name": "electron-drag-drop",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Easily manipulate drag and drop in Electron.",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,7 @@
     "spectron": "^3.6.0"
   },
   "dependencies": {
-    "electron-ipc-plus": "^1.2.3",
+    "electron-ipc-plus": "^1.3.3",
     "electron-platform": "^1.2.0",
     "path-plus": "^1.0.0"
   }

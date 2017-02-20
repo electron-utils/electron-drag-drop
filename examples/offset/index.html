@@ -100,10 +100,37 @@
 
       addon (dropEL, droppable);
       dropEL._initDroppable(dropEL);
-      dropEL.addEventListener('drop-area-move', event => {
+
+      dropEL.addEventListener('drop-area-enter', event => {
         dropEL.innerText = `
+          event: drop-area-enter
           client: ${event.detail.clientX}, ${event.detail.clientY}
           offset: ${event.detail.offsetX}, ${event.detail.offsetY}
+        `;
+        drag.updateDropEffect(event.detail.dataTransfer, 'copy');
+      });
+
+      dropEL.addEventListener('drop-area-move', event => {
+        dropEL.innerText = `
+          event: drop-area-move
+          client: ${event.detail.clientX}, ${event.detail.clientY}
+          offset: ${event.detail.offsetX}, ${event.detail.offsetY}
+        `;
+        drag.updateDropEffect(event.detail.dataTransfer, 'copy');
+      });
+
+      dropEL.addEventListener('drop-area-accept', event => {
+        dropEL.innerText = `
+          event: drop-area-accept
+          client: ${event.detail.clientX}, ${event.detail.clientY}
+          offset: ${event.detail.offsetX}, ${event.detail.offsetY}
+        `;
+        drag.updateDropEffect(event.detail.dataTransfer, 'copy');
+      });
+
+      dropEL.addEventListener('drop-area-leave', event => {
+        dropEL.innerText = `
+          event: drop-area-leave
         `;
         drag.updateDropEffect(event.detail.dataTransfer, 'copy');
       });

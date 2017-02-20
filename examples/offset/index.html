@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Panel Example</title>
+    <style>
+      body {
+        position: absolute;
+        top: 0; bottom: 0; left: 0; right: 0;
+        display: flex;
+        flex-direction: column;
+
+        background: #333;
+      }
+
+      h2 {
+        color: #f90;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .box {
+        color: #888;
+        background: #555;
+        border: 1px solid #888;
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+      }
+
+      .drop-box {
+        margin: 5px;
+        padding: 5px;
+        flex: 1;
+        border: 1px solid #888;
+
+        color: #333;
+        font-weight: bold;
+
+        background-color: #269;
+        background-image:
+          linear-gradient(white 1px, transparent 1px),
+          linear-gradient(90deg, white 1px, transparent 1px),
+          linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px);
+
+        background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+      }
+
+      .drop-box[drag-hovering] {
+        color: #000;
+        border: 1px solid #090;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Drag</h2>
+
+    <div class="container">
+      <div id="foo" class="box" draggable="true">foo</div>
+      <div id="bar" class="box" draggable="true">bar-01, bar-02</div>
+    </div>
+    <div id="drop" class="drop-box" droppable="foo,bar" multi >Drop Area</div>
+
+    <script>
+      'use strict'
+
+      const {drag, droppable, addon} = require('../../index');
+
+      let fooEL = document.getElementById('foo');
+      let barEL = document.getElementById('bar');
+      let dropEL = document.getElementById('drop');
+
+      fooEL.addEventListener('dragstart', event => {
+        drag.start(event.dataTransfer, {
+          effect: 'copy',
+          type: 'foo',
+          items: 'foo',
+        });
+      });
+      fooEL.addEventListener('dragend', event => {
+        drag.end();
+      });
+
+      barEL.addEventListener('dragstart', event => {
+        drag.start(event.dataTransfer, {
+          effect: 'copy',
+          type: 'bar',
+          items: ['bar-01', 'bar-02'],
+          buildImage: true,
+        });
+      });
+      barEL.addEventListener('dragend', event => {
+        drag.end();
+      });
+
+      addon (dropEL, droppable);
+      dropEL._initDroppable(dropEL);
+      dropEL.addEventListener('drop-area-move', event => {
+        dropEL.innerText = `
+          client: ${event.detail.clientX}, ${event.detail.clientY}
+          offset: ${event.detail.offsetX}, ${event.detail.offsetY}
+        `;
+        drag.updateDropEffect(event.detail.dataTransfer, 'copy');
+      });
+    </script>
+  </body>
+</html>

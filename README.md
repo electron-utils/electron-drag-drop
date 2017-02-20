@@ -5,7 +5,7 @@
 [![Dependency Status](https://david-dm.org/electron-utils/electron-drag-drop.svg)](https://david-dm.org/electron-utils/electron-drag-drop)
 [![devDependency Status](https://david-dm.org/electron-utils/electron-drag-drop/dev-status.svg)](https://david-dm.org/electron-utils/electron-drag-drop#info=devDependencies)
 
-TODO: Desc
+Easily manipulate drag and drop in Electron.
 
 ## Install
 
@@ -24,6 +24,7 @@ npm start example
 **main process**
 
 ```javascript
+// IMPORTANT: electron-drag-drop needs init in main process for broadcasting ipc messages.
 // init drag-drop in main process
 require('electron-drag-drop');
 ```
@@ -66,6 +67,8 @@ require('electron-drag-drop');
 
 ## API Reference
 
+  - [Module: drag](./docs/drag.md)
+  - [Module: droppable](./docs/droppable.md)
 TODO
 
 ## License

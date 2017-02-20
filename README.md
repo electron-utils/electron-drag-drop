@@ -69,7 +69,6 @@ require('electron-drag-drop');
 
   - [Module: drag](./docs/drag.md)
   - [Module: droppable](./docs/droppable.md)
-TODO
 
 ## License
 

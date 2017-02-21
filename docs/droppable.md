@@ -1,4 +1,4 @@
-# Module: droppable
+# Module: droppable (renderer process)
 
 This module needs to addon to an HTMLElmement to make it work.
 Here is an example:

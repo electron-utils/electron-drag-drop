@@ -67,8 +67,8 @@ require('electron-drag-drop');
 
 ## API Reference
 
-  - [Module: drag](./docs/drag.md)
-  - [Module: droppable](./docs/droppable.md)
+  - [Module: drag (renderer process)](docs/drag.md)
+  - [Module: droppable (renderer process)](docs/droppable.md)
 
 ## License
 

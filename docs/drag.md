@@ -1,4 +1,4 @@
-# Module: drag
+# Module: drag (renderer process)
 
 ## Methods
 

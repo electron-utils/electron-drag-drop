@@ -1,7 +1,8 @@
 # Module: droppable (renderer process)
 
-This module needs to addon to an HTMLElmement to make it work.
-Here is an example:
+Addon this module to an exists HTMLElmement or assign it to the prototype of a CustomElement.
+
+Addon to an exists HTMLElmement:
 
 ```html
 <body>
@@ -9,7 +10,7 @@ Here is an example:
   <script>
     'use strict'
 
-    const {droppable, addon} = require('../../index');
+    const {droppable, addon} = require('electron-drag-drop');
 
     let dropEL = document.getElementById('drop');
     addon (dropEL, droppable);
@@ -17,6 +18,43 @@ Here is an example:
   </script>
 </body>
 ```
+
+Assign it to the prototype of a CustomElement:
+
+```javascript
+const {droppable, addon} = require('electron-drag-drop');
+
+class MyElement extends window.HTMLElement {
+  constructor () {
+    super();
+
+    this.attachShadow({
+      mode: 'open'
+    });
+    this.shadowRoot.innerHTML = `
+      <div class="drop-area">
+        Drop Area
+      </div>
+    `;
+
+    this.$droparea = this.shadowRoot.querySelector('.drop-area');
+    this._inited = false;
+  }
+
+  connectedCallback () {
+    if ( this._inited ) {
+      return;
+    }
+    this._inited = false;
+    this._initDroppable(this.$droparea);
+  }
+}
+
+addon(MyElement.prototype, droppable);
+
+window.customElements.define('my-element', MyElement);
+```
+
 
 ## Methods
 

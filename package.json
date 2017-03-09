@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/electron-utils/electron-drag-drop",
   "devDependencies": {
-    "electron": "^1.4.15",
+    "electron": "^1.6.2",
     "mocha": "^3.2.0",
     "spectron": "^3.6.0"
   },

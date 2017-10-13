@@ -35,7 +35,7 @@
   <body>
     <h2>Drop</h2>
 
-   <div id="drop" class="box" droppable="foo,bar" multi >Drop Area</div>
+    <div id="drop" class="box" droppable="foo,bar,file" multi>Drop Area</div>
 
     <script>
       'use strict'
@@ -47,6 +47,12 @@
       dropEL._initDroppable(dropEL);
       dropEL.addEventListener('drop-area-move', event => {
         drag.updateDropEffect(event.detail.dataTransfer, 'copy');
+      });
+
+      // NOTE: prevent system drop effect
+      window.addEventListener('dragover', event => {
+        event.dataTransfer.dropEffect = 'none';
+        event.preventDefault();
       });
 
     </script>

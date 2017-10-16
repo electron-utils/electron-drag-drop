@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Panel Example</title>
+</head>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: #e4e4e4;
+  }
+
+  .drag-row {
+    margin: 10px;
+    display: flex;
+  }
+
+  .drag-item {
+    margin: 0 10px;
+    border: 2px dashed #000;
+    width: 60px;
+    min-width: 60px;
+    height: 60px;
+    min-height: 60px;
+    line-height: 60px;
+    text-align: center;
+    display: inline-block;
+    background: #e4e4e4;
+    color: #000;
+  }
+
+  .drag-item[draggable="true"] {
+    border-style: solid;
+  }
+
+  .drag-area {
+    margin: 0 10px;
+    padding: 10px;
+    border: 2px dashed #000;
+    flex: 1;
+    min-width: 260px;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .drag-item[drag-hovering] {
+    border-color: green;
+    color: green;
+    background: #eee;
+  }
+
+  h3 {
+    margin: 18px;
+    white-space: nowrap;
+  }
+</style>
+<body>
+
+  <h3>Drag</h3>
+  
+  <div class="drag-row">
+    <div class="drag-item" draggable="true">foo</div>
+    <div class="drag-item" draggable="true">foo(s)</div>
+    <div class="drag-item" draggable="true">bar</div>
+    <div class="drag-item" draggable="true">bar(s)</div>
+  </div>
+
+  <h3>Drop Area</h3>
+
+  <div class="drag-row">
+    <div class="drag-item" droppable="file">file</div>
+    <div class="drag-item" droppable="file" multi>file(s)</div>
+  </div>
+  
+  <div class="drag-row">
+    <div class="drag-item" droppable="foo">foo</div>
+    <div class="drag-item" droppable="foo" multi>foo(s)</div>
+  </div>
+  
+  <div class="drag-row">
+    <div class="drag-item" droppable="bar">bar</div>
+    <div class="drag-item" droppable="bar" multi>bar(s)</div>
+  </div>
+
+  <div class="drag-row">
+    <div class="drag-area drag-item" droppable="foo,bar,file">
+      <div class="drag-item" droppable="foo">foo</div>
+      <div class="drag-item" droppable="bar">bar</div>
+      <div class="drag-item" droppable="foo,bar">f&b</div>
+    </div>
+  </div>
+</body>
+
+<script>
+  'use strict'
+
+  const {drag, droppable, addon} = require('../../index');
+  let items = document.getElementsByClassName('drag-item');
+
+  Array.prototype.forEach.call(items, (item) => {
+    if (item.getAttribute('droppable')) {
+      addon (item, droppable);
+      item._initDroppable(item);
+
+      item.addEventListener('drop-area-move', event => {
+        drag.updateDropEffect(event.detail.dataTransfer, 'copy');
+      });
+    } else if (item.getAttribute('draggable')) {
+      let draggable = item.getAttribute('draggable');
+      let multi = item.innerText.length > 3;
+      let type = item.innerText.substr(0, 3);
+
+      item.addEventListener('dragstart', event => {
+        drag.start(event.dataTransfer, {
+          effect: 'copy',
+          type: type,
+          items: multi ? [`${draggable}-1`, `${draggable}-2`] : draggable,
+        });
+      });
+      item.addEventListener('dragend', event => {
+        drag.end();
+      });
+    }
+  });
+
+  window.addEventListener('dragover', event => {
+    event.dataTransfer.dropEffect = 'none';
+    event.preventDefault();
+  });
+
+</script>
+
+</html>

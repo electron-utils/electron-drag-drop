@@ -43,6 +43,6 @@ Update drop effect.
 
 ### drag.options ()
 
-## Porperties
+## Properties
 
 ### drag.dragging (boolean)
